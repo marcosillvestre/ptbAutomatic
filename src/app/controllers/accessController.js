@@ -21,14 +21,20 @@ class AccessController {
             access_token,
             refresh_token
         } = req.body
+        try {
+            await prisma.conec.update({
+                where: { id: 1 },
+                data: {
+                    access_token,
+                    refresh_token
+                }
+            })
 
-        await prisma.conec.update({
-            where: { id: 1 },
-            data: {
-                access_token,
-                refresh_token
+        } catch (error) {
+            if (error) {
+                return res.status(400).json({ message: "Tem algum problema" })
             }
-        })
+        }
 
         return res.status(201).json({ message: "Token enviado com sucesso" })
     }
