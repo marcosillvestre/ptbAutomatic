@@ -8,6 +8,8 @@ const AccessController = require('./src/app/controllers/accessController')
 routes.post("/cadastros", RegisterController.store)
 routes.post("/access", AccessController.update)
 routes.get("/access", AccessController.index)
-
+routes.get("/", (req, res) => {
+    res.send("ta on")
+})
 
 module.exports = routes
