@@ -2,6 +2,9 @@
     "name": "automatize",
     "version": "1.0.0",
     "description": "",
+    "engines": {
+        "node": "14.x"
+    },
     "main": "index.js",
     "dependencies": {
         "asynckit": "^0.4.0",
@@ -25,8 +28,8 @@
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "start": "npm install && npx prisma migrate deploy && npm run init",
-        "dev": "nodemon",
-        "init": "node server.js"
+        "init": "node server.js",
+        "dev": "nodemon"
     },
     "keywords": [],
     "author": "",
