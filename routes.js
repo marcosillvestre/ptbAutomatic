@@ -5,9 +5,9 @@ require("dotenv").config()
 
 const AccessController = require('./src/app/controllers/accessController')
 
-routes.post(process.env.ROUTE_POST, RegisterController.store)
-routes.post(process.env.TOKENS, AccessController.update)
-routes.get(process.env.TOKENS, AccessController.index)
+routes.post("/cadastros", RegisterController.store)
+routes.post("/access", AccessController.update)
+routes.get("/access", AccessController.index)
 
 
 module.exports = routes

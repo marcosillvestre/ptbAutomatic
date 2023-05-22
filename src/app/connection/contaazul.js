@@ -1,7 +1,7 @@
 const axios = require("axios");
 require('dotenv').config()
 
-const encoded = (Buffer.from(`${process.env.CONTA_AZUL_CLIENTID}:${process.env.CONTA_AZUL_CLIENT_SECRET}`).toString('base64'));
+const encoded = (Buffer.from(`gA5kbvybgtzWH6i8wgOrp7VKqh0XD6wu:ZHnn2aVKrsWrEZqecoM0HtOS4oTeZ1XX`).toString('base64'));
 
 const { PrismaClient } = require('@prisma/client')
 const prisma = new PrismaClient()
