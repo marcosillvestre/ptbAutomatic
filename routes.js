@@ -14,7 +14,7 @@ routes.post("/access", AccessController.update)
 routes.get("/access", AccessController.index)
 
 app.get("/", (req, res) => {
-    return res.send("ta on")
+    return res.json("ta on")
 })
 
 module.exports = routes
