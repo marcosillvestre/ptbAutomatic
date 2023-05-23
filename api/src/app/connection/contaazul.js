@@ -1,7 +1,7 @@
 const axios = require("axios");
 require('dotenv').config()
 
-const encoded = (Buffer.from(`gA5kbvybgtzWH6i8wgOrp7VKqh0XD6wu:ZHnn2aVKrsWrEZqecoM0HtOS4oTeZ1XX`).toString('base64'));
+const encoded = (Buffer.from(`${process.env.CLIENT_ID}:${process.env.CLIENT_SECRET}`).toString('base64'));
 
 const { PrismaClient } = require('@prisma/client')
 const prisma = new PrismaClient()
@@ -31,19 +31,25 @@ async function refresh() {
         "refresh_token": `${db[0]?.refresh_token}`
     }
 
-
-    await axios.post("https://api.contaazul.com/oauth2/token",
-        body, { headers }).then(async data => {
-            await prisma.conec.update({
-                where: { id: 1 },
-                data: {
-                    access_token: data.data.access_token,
-                    refresh_token: data.data.refresh_token
+    try {
+        await axios.post("https://api.contaazul.com/oauth2/token",
+            body, { headers }).then(async data => {
+                console.log(data.data)
+                await prisma.conec.update({
+                    where: { id: 1 },
+                    data: {
+                        access_token: data.data.access_token,
+                        refresh_token: data.data.refresh_token
+                    }
                 }
-            }
-            )
-        })
-        .catch(err => console.log(err.response?.data))
+                )
+            })
+
+    } catch (error) {
+        if (error) {
+            console.log(error)
+        }
+    }
 }
 
 //this 👆👆 part saves on a database the access and refresh_token
