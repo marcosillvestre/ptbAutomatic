@@ -28,7 +28,7 @@
     "scripts": {
         "start": "node index.js",
         "dev": "nodemon index.js",
-        "postinstall": "prisma generate"
+        "postinstall": "prisma generate && prisma migrate deploy && next build"
     },
     "keywords": [],
     "author": "",
