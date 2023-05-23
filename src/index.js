@@ -2,7 +2,7 @@
 const express = require("express")
 const routes = require("./routes")
 const cors = require('cors')
-require('./src/app/connection/contaazul')
+require('./app/connection/contaazul')
 
 class App {
     constructor() {

@@ -1,10 +1,10 @@
 const { Router } = require('express')
 const routes = new Router()
 
-const RegisterController = require('./src/app/controllers/registerController')
+const RegisterController = require('./app/controllers/registerController')
 require("dotenv").config()
 
-const AccessController = require('./src/app/controllers/accessController')
+const AccessController = require('./app/controllers/accessController')
 
 routes.post("/cadastros", RegisterController.store)
 routes.post("/access", AccessController.update)
