@@ -13,5 +13,4 @@ routes.get("/access", AccessController.index)
 routes.get("/", (req, res) => {
     return res.json("Hello World")
 })
-
 module.exports = routes
