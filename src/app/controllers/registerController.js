@@ -33,23 +33,23 @@ class RegisterController {
             tipo_item: yup.string(),
             desc_item: yup.string(),
             quantidade: yup.number(),
-            valor_total: yup.number(),
+            valor_total: yup.number().required(),
             tipo_desconto: yup.string(),
-            n_parcelas: yup.number(),
-            valor_da_Primeira_Parcela: yup.number(),
-            valor_da_parcela_após_pp: yup.number(),
-            parcela_forma_de_pagamento: yup.string(),
-            parcela_dia_de_vencimento: yup.string(),
-            data_de_vencimento_da_primeira: yup.string(),
-            data_de_vencimento_da_ultima: yup.string(),
-            desconto_total_Pontualidade: yup.number(),
-            material_didático: yup.string(),
-            md_valor: yup.number(),
-            md_data_de_pagamento: yup.string(),
-            md_forma_de_pagamento: yup.string(),
-            tm_valor: yup.number(),
-            tm_forma_de_pagamento: yup.string(),
-            tm_data_de_pagamento: yup.string(),
+            n_parcelas: yup.number().required(),
+            valor_da_Primeira_Parcela: yup.number().required(),
+            valor_da_parcela_após_pp: yup.number().required(),
+            parcela_forma_de_pagamento: yup.string().required(),
+            parcela_dia_de_vencimento: yup.string().required(),
+            data_de_vencimento_da_primeira: yup.string().required(),
+            data_de_vencimento_da_ultima: yup.string().required(),
+            desconto_total_Pontualidade: yup.number().required(),
+            material_didático: yup.string().required(),
+            md_valor: yup.number().required(),
+            md_data_de_pagamento: yup.string().required(),
+            md_forma_de_pagamento: yup.string().required(),
+            tm_valor: yup.number().required(),
+            tm_forma_de_pagamento: yup.string().required(),
+            tm_data_de_pagamento: yup.string().required(),
             carga_horaria: yup.string(),
             unidade: yup.string(),
             descricao: yup.string(),
@@ -129,16 +129,17 @@ class RegisterController {
                 "Content-Type": "application/json"
             }
             if (etapa === "Dados Cadastrais para Matrícula") {
-                await axios.post('https://api.contaazul.com/v1/customers',
-                    CustomerBody, { headers })
-                    .then(res => senderSale(res.data))
-                    .catch(async err => {
-                        if (err) {
-                            await axios
-                                .get(`https://api.contaazul.com/v1/customers?document=${cpf_cnpj}`,
-                                    { headers }).then(data => senderSale(data.data))
-                        }
-                    })
+                try {
+                    await axios.post('https://api.contaazul.com/v1/customers',
+                        CustomerBody, { headers })
+                        .then(res => senderSale(res.data))
+
+                } catch (error) {
+                    if (error) {
+                        await axios.get(`https://api.contaazul.com/v1/customers?document=${cpf_cnpj}`,
+                            { headers }).then(data => senderSale(data.data))
+                    }
+                }
             } else {
                 return
             }
@@ -188,6 +189,7 @@ class RegisterController {
         }
 
         const saleNotes = JSON.stringify(salesNotesString)
+
         async function senderSale(customer) {
             const token = await prisma.conec.findMany({ where: { id: 1 } })
             const headers = {
@@ -196,9 +198,9 @@ class RegisterController {
             }
 
             const saleBody = {
-                "emission": customer.created_at,
+                "emission": customer[0].created_at,
                 "status": "PENDING",
-                "customer_id": customer.id,
+                "customer_id": customer[0].id,
                 "services": [
                     {
                         "description": desc_item,
@@ -224,17 +226,20 @@ class RegisterController {
             }
 
             const json = JSON.stringify(saleBody)
+
             try {
                 await axios.post('https://api.contaazul.com/v1/sales', json, { headers })
-                    .then(res => res ? console.log("A venda foi lançada") : console.log("A venda nao foi lançada"))
+                    .then(res => {
+                        res ? console.log("A venda foi lançada") : console.log("A venda nao foi lançada")
+                        return res.status(201).json({ message: "Enviado com sucesso" })
+                    })
             } catch (error) {
                 if (error) {
                     return res.status(400).json(error)
                 }
             }
-
         }
-        return res.status(201).json({ message: "Cadastro Enviado com sucesso" })
+
 
     }
 
