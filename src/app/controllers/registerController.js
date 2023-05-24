@@ -224,8 +224,14 @@ class RegisterController {
             }
 
             const json = JSON.stringify(saleBody)
-            await axios.post('https://api.contaazul.com/v1/sales', json, { headers })
-                .then(res => res ? console.log("A venda foi lançada") : console.log("A venda nao foi lançada")).catch(err => console.log(err.response?.data))
+            try {
+                await axios.post('https://api.contaazul.com/v1/sales', json, { headers })
+                    .then(res => res ? console.log("A venda foi lançada") : console.log("A venda nao foi lançada"))
+            } catch (error) {
+                if (error) {
+                    return res.status(400).json(error)
+                }
+            }
 
         }
         return res.status(201).json({ message: "Cadastro Enviado com sucesso" })
