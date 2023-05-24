@@ -11,7 +11,7 @@ routes.post("/access", AccessController.update)
 // routes.get("/access", AccessController.index)
 
 routes.get("/access", (req, res) => {
-    return res.json("Hello World")
+    return res.json("acesso")
 })
 
 routes.get("/", (req, res) => {
