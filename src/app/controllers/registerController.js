@@ -198,9 +198,9 @@ class RegisterController {
             }
 
             const saleBody = {
-                "emission": customer[0].created_at,
+                "emission": customer[0]?.created_at,
                 "status": "PENDING",
-                "customer_id": customer[0].id,
+                "customer_id": customer[0]?.id,
                 "services": [
                     {
                         "description": desc_item,
@@ -231,7 +231,6 @@ class RegisterController {
                 await axios.post('https://api.contaazul.com/v1/sales', json, { headers })
                     .then(res => {
                         res ? console.log("A venda foi lançada") : console.log("A venda nao foi lançada")
-                        return res.status(201).json({ message: "Enviado com sucesso" })
                     })
             } catch (error) {
                 if (error) {
@@ -240,6 +239,7 @@ class RegisterController {
             }
         }
 
+        return res.status(201).json({ message: "Enviado com sucesso" })
 
     }
 
