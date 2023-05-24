@@ -7,7 +7,7 @@ require("dotenv").config()
 const AccessController = require('../app/controllers/accessController')
 
 routes.post("/cadastros", RegisterController.store)
-routes.post("/access", AccessController.update)
+routes.post("/send-access", AccessController.update)
 routes.get("/access", AccessController.index)
 
 // routes.get("/access", (req, res) => {

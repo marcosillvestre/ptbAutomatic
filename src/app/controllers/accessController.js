@@ -35,7 +35,6 @@ class AccessController {
                 return res.status(400).json({ message: "Tem algum problema" })
             }
         }
-
         return res.status(201).json({ message: "Token enviado com sucesso" })
     }
 
