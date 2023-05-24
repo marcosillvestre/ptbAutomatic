@@ -7,9 +7,9 @@
         }
     ],
     "routes": [
-        { "src": "/", "dest": "./src" },
-        { "src": "/access", "dest": "./src" },
-        { "src": "/send-access", "dest": "./src" },
-        { "src": "/cadastros", "dest": "./src" }
+        { "src": "/", "dest": "index.js" },
+        { "src": "/access", "dest": "index.js" },
+        { "src": "/send-access", "dest": "index.js" },
+        { "src": "/cadastros", "dest": "index.js" }
     ]
 }
