@@ -129,17 +129,20 @@ class RegisterController {
                 "Content-Type": "application/json"
             }
             if (etapa === "Dados Cadastrais para Matrícula") {
-                try {
-                    await axios.post('https://api.contaazul.com/v1/customers',
-                        CustomerBody, { headers })
-                        .then(res => senderSale(res.data))
 
-                } catch (error) {
-                    if (error) {
-                        await axios.get(`https://api.contaazul.com/v1/customers?document=${cpf_cnpj}`,
-                            { headers }).then(data => senderSale(data.data))
-                    }
-                }
+                await axios.post('https://api.contaazul.com/v1/customers',
+                    CustomerBody, { headers })
+                    .then(res => senderSale(res.data))
+                    .catch(async data => {
+                        if (data) {
+                            await axios.get(`https://api.contaazul.com/v1/customers?document=${cpf_cnpj}`,
+                                { headers }).then(data => senderSale(data.data[0]))
+                        }
+                    })
+
+
+
+
             } else {
                 return
             }
@@ -198,9 +201,9 @@ class RegisterController {
             }
 
             const saleBody = {
-                "emission": customer[0]?.created_at,
+                "emission": customer?.created_at,
                 "status": "PENDING",
-                "customer_id": customer[0]?.id,
+                "customer_id": customer?.id,
                 "services": [
                     {
                         "description": desc_item,
