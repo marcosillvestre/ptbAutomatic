@@ -8,7 +8,7 @@ const prisma = new PrismaClient()
 
 var CronJob = require('cron').CronJob;
 var job = new CronJob(
-    '0 */50 * * * *',
+    '0 */1 * * * *',
     function () {
         refresh()
     },
