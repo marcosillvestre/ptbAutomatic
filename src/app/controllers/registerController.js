@@ -89,7 +89,7 @@ class RegisterController {
             n_contrato, background, primeira_aula, dia_aula, professor, horario_inicio, horario_fim
         })
 
-        const CustomerBody = {
+        const customer = {
             "name": name,
             "email": email,
             "business_phone": telefone, //
@@ -116,6 +116,8 @@ class RegisterController {
             }
         }
 
+        const customerBody = JSON.stringify(customer)
+
         async function db() {
             const log = await prisma.conec.findMany({ where: { id: 1 } })
             senderCustomer(log[0].access_token)
@@ -130,20 +132,21 @@ class RegisterController {
 
             if (etapa === "Dados Cadastrais para Matrícula" && unidade === "Centro") {
                 await axios.post('https://api.contaazul.com/v1/customers',
-                    CustomerBody, { headers })
+                    customerBody, { headers })
                     .then(res => senderSale(res.data))
                     .catch(async err => {
                         if (err) {
                             await axios.get(`https://api.contaazul.com/v1/customers?document=${cpf_cnpj}`,
-                                { headers }).then(data => senderSale(data.data[0])).catch(err => { return res.status(400).json({ error: "Deu errado na criação do cliente" }) })
+                                { headers }).then(data => senderSale(data.data[0]))
                         }
                     })
-
-            } else {
-                return
             }
-        }
+            return
 
+
+
+
+        }
 
         const parcelas = [];
         for (let i = 0; i < n_parcelas; i++) {
@@ -223,10 +226,13 @@ class RegisterController {
             }
 
             await axios.post('https://api.contaazul.com/v1/sales', saleBody, { headers })
-                .then(res => {
-                    res ? console.log("A venda foi lançada") : console.log("A venda nao foi lançada")
+                .then(data => {
+                    data ? console.log("A venda foi lançada") : console.log("A venda nao foi lançada")
                 }).catch(error => {
-                    return res.status(400).json({ message: "Erro na venda" })
+                    if (error) {
+                        return res.status(400).json({ message: "Erro na venda" })
+                    }
+
                 })
 
         }
