@@ -25,7 +25,6 @@ async function refresh() {
         "Content-Type": "application/json"
     }
     const db = await prisma.conec.findMany({ where: { id: 1 } })
-
     const body = {
         "grant_type": "refresh_token",
         "refresh_token": `${db[0]?.refresh_token}`
