@@ -128,7 +128,7 @@ class RegisterController {
                 "Authorization": `Bearer ${token}`,
                 "Content-Type": "application/json"
             }
-            if (etapa === "Dados Cadastrais para Matrícula") {
+            if (etapa === "Dados Cadastrais para Matrícula" && unidade === "Centro") {
                 await axios.post('https://api.contaazul.com/v1/customers',
                     CustomerBody, { headers })
                     .then(res => senderSale(res.data))
@@ -142,8 +142,6 @@ class RegisterController {
             } else {
                 return
             }
-
-
         }
 
 
