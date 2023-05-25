@@ -89,7 +89,7 @@ class RegisterController {
             n_contrato, background, primeira_aula, dia_aula, professor, horario_inicio, horario_fim
         })
 
-        const customer = {
+        const customerBody = {
             "name": name,
             "email": email,
             "business_phone": telefone, //
@@ -116,8 +116,6 @@ class RegisterController {
             }
         }
 
-        const customerBody = JSON.stringify(customer)
-
         async function db() {
             const log = await prisma.conec.findMany({ where: { id: 1 } })
             senderCustomer(log[0].access_token)
@@ -130,7 +128,7 @@ class RegisterController {
                 "Content-Type": "application/json"
             }
 
-            if (etapa === "Dados Cadastrais para Matrícula" && unidade === "Centro") {
+            if (etapa === '"Dados Cadastrais para Matrícula"' && unidade === '"Centro"') {
                 await axios.post('https://api.contaazul.com/v1/customers',
                     customerBody, { headers })
                     .then(res => senderSale(res.data))
@@ -142,9 +140,6 @@ class RegisterController {
                     })
             }
             return
-
-
-
 
         }
 
@@ -244,3 +239,5 @@ class RegisterController {
 }
 
 module.exports = new RegisterController()
+
+
