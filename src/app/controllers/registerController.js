@@ -135,7 +135,7 @@ class RegisterController {
                     .catch(async err => {
                         if (err) {
                             await axios.get(`https://api.contaazul.com/v1/customers?document=${cpf_cnpj}`,
-                                { headers }).then(data => senderSale(data.data))
+                                { headers }).then(data => senderSale(data.data[0]))
                         }
                     })
 
