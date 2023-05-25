@@ -17,7 +17,7 @@ class RegisterController {
         const schema = yup.object().shape({
             name: yup.string().required(),
             email: yup.string().required(),
-            telefone: yup.string().required(),
+            telefone: yup.string(),
             celular: yup.string().required(),
             cpf_cnpj: yup.string().required(),
             rg: yup.string().required(),
@@ -27,9 +27,8 @@ class RegisterController {
             postal_code: yup.string().required(),
             endereco: yup.string().required(),
             numero: yup.string().required(),
-            aditional_info: yup.string().required(),
-            district: yup.string().required(),
-
+            aditional_info: yup.string(),
+            district: yup.string(),
             tipo_item: yup.string(),
             desc_item: yup.string(),
             quantidade: yup.number(),
