@@ -66,7 +66,7 @@ class RegisterController {
         try {
             await schema.validateSync(req.body, { abortEarly: false })     //this guy validates what comes from multiple places 
         } catch (err) {
-            return res.status(400).json({ error: err.errors })
+            return res.status(400).json({ error: "Erro nos dados enviados" })
         }
         const {
             name, email, etapa,
@@ -135,7 +135,7 @@ class RegisterController {
                     .catch(async err => {
                         if (err) {
                             await axios.get(`https://api.contaazul.com/v1/customers?document=${cpf_cnpj}`,
-                                { headers }).then(data => senderSale(data.data[0]))
+                                { headers }).then(data => senderSale(data.data[0])).catch(err => { return res.status(400).json({ error: "Deu errado na criação do cliente" }) })
                         }
                     })
 
@@ -229,7 +229,7 @@ class RegisterController {
                 .then(res => {
                     res ? console.log("A venda foi lançada") : console.log("A venda nao foi lançada")
                 }).catch(error => {
-                    return res.status(400).json(error)
+                    return res.status(400).json({ message: "Erro na venda" })
                 })
 
         }
