@@ -127,6 +127,7 @@ class RegisterController {
                 "Authorization": `Bearer ${token}`,
                 "Content-Type": "application/json"
             }
+
             if (etapa === "Dados Cadastrais para Matrícula" && unidade === "Centro") {
                 await axios.post('https://api.contaazul.com/v1/customers',
                     CustomerBody, { headers })
@@ -221,10 +222,7 @@ class RegisterController {
                 "category_id": "" //
             }
 
-            const json = JSON.stringify(saleBody)
-
-
-            await axios.post('https://api.contaazul.com/v1/sales', json, { headers })
+            await axios.post('https://api.contaazul.com/v1/sales', saleBody, { headers })
                 .then(res => {
                     res ? console.log("A venda foi lançada") : console.log("A venda nao foi lançada")
                 }).catch(error => {
