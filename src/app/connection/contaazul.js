@@ -10,7 +10,7 @@ var CronJob = require('cron').CronJob;
 var job = new CronJob(
     '0 */50 * * * *',
     function () {
-        refresh()
+        // refresh()
     },
     null,
     true,
@@ -53,10 +53,3 @@ async function refresh() {
 
 //this 👆👆 part saves on a database the access and refresh_token
 
-
-const kk = false
-const jj = true
-
-if (kk && jj === true) {
-    console.log("first")
-}

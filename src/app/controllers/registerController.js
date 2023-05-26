@@ -127,7 +127,7 @@ class RegisterController {
                 "Authorization": `Bearer ${token}`,
                 "Content-Type": "application/json"
             }
-
+            console.log(customerBody)
             if (etapa === '"Dados Cadastrais para Matrícula"' && unidade === '"Centro"') {
                 await axios.post('https://api.contaazul.com/v1/customers',
                     customerBody, { headers })
