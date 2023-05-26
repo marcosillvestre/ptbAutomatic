@@ -127,17 +127,19 @@ class RegisterController {
                 "Authorization": `Bearer ${token}`,
                 "Content-Type": "application/json"
             }
-            console.log(customerBody)
-            if (etapa === '"Dados Cadastrais para Matrícula"' && unidade === '"Centro"') {
+            if (etapa === 'Dados Cadastrais para Matrícula' && unidade === 'Centro') {
                 await axios.post('https://api.contaazul.com/v1/customers',
                     customerBody, { headers })
-                    .then(res => senderSale(res.data))
+                    .then(res => {
+                        senderSale(res.data)
+                    })
                     .catch(async err => {
-                        if (err) {
+                        if (err.response.data.message === 'CPF/CPNJ já utilizado por outro cliente.') {
                             await axios.get(`https://api.contaazul.com/v1/customers?document=${cpf_cnpj}`,
                                 { headers }).then(data => senderSale(data.data[0]))
                         }
-                    })
+                    }
+                    )
             }
             return
 

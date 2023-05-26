@@ -14,5 +14,5 @@ model conec {
   id              Int         @id @default(autoincrement())
   access_token    String 
   refresh_token   String
-  createdAt       DateTime    @default(now())
+  
 }
