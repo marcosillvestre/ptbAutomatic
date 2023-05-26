@@ -35,12 +35,11 @@ async function refresh() {
     try {
         await axios.post("https://api.contaazul.com/oauth2/token",
             body, { headers }).then(async data => {
-                console.log(data.data)
                 await prisma.conec.update({
                     where: { id: 1 },
                     data: {
-                        access_token: data.data.access_token,
-                        refresh_token: data.data.refresh_token
+                        access_token: data?.data.access_token,
+                        refresh_token: data?.data.refresh_token
                     }
                 }
                 )
