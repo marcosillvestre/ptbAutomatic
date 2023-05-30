@@ -1,0 +1,15 @@
+{
+    "version": 2,
+    "builds": [
+        {
+            "src": "./index.js",
+            "use": "@vercel/node"
+        }
+    ],
+    "routes": [
+        { "src": "/", "dest": "index.js" },
+        { "src": "/access", "dest": "index.js" },
+        { "src": "/send-access", "dest": "index.js" },
+        { "src": "/cadastros", "dest": "index.js" }
+    ]
+}
