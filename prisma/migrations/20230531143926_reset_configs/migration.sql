@@ -1,9 +1,8 @@
 -- CreateTable
-CREATE TABLE "conec" (
+CREATE TABLE "index" (
     "id" SERIAL NOT NULL,
     "access_token" TEXT NOT NULL,
     "refresh_token" TEXT NOT NULL,
 
-
-    CONSTRAINT "conec_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "index_pkey" PRIMARY KEY ("id")
 );

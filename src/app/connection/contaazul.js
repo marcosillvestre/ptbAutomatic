@@ -17,8 +17,6 @@ var job = new CronJob(
     'America/Los_Angeles'
 );
 
-
-
 //👆👆 this dude makes this 👇👇 function runs every 50min
 
 async function refresh() {
@@ -35,6 +33,7 @@ async function refresh() {
     try {
         await axios.post("https://api.contaazul.com/oauth2/token",
             body, { headers }).then(async data => {
+                console.log(data.data)
                 await prisma.conec.update({
                     where: { id: 1 },
                     data: {
