@@ -28,13 +28,13 @@
     "scripts": {
         "start": "node index.js",
         "dev": "nodemon index.js",
-        "postinstall": "prisma generate && prisma migrate dev"
+        "postinstall": "prisma generate && prisma migrate deploy"
     },
     "keywords": [],
     "author": "",
     "license": "ISC",
     "devDependencies": {
-        "@prisma/client": "^4.14.1",
-        "prisma": "^4.14.1"
+        "@prisma/client": "^4.15.0",
+        "prisma": "^4.15.0"
     }
 }
